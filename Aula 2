@@ -1,0 +1,28 @@
+Conteudo apresentado na aula do dia 25/02/2025
+
+Apresentação e exemplificação de uso de LLM, exemplo de uso de chaves de API, Apresetação de custos de IAs, criação de ambiente.
+Utilização de python para uso de Ia via API.(OpenAI e Groq)
+
+SCRIPT
+```py
+import os
+import openai
+
+client = openai.OpenAI(
+    base_url="https://api.groq.com/openai/v1",
+    api_key=("CHAVE_API_KEY")
+)
+
+
+completion = client.chat.completions.create(
+    model = "deepseek-r1-distill-llama-70b",
+    messages=[
+        {"role": "system", "content": "Você é uma vendedora de pastel eficiente."},
+        {"role": "user", "content": "Me indique os melhores pasteis, para a semana, me responda em português. Seja rigososo!"}
+    ]
+)
+
+print (completion.choices[0].message)
+```
+
+

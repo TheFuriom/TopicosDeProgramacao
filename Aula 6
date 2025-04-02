@@ -1,0 +1,39 @@
+Na aula do dia 1 de abril de 2025, usamos a VPS oferecida pela DigitalOcean para a criação de estancians usando o docker, além disso fizemos edições de alguns arquivos usando Vim para criar estancias no docker
+
+VPS--
+Douglas-VPS
+4 GB / 2 AMD vCPUs / 80 GB Disk / TOR1 - Ubuntu 24.10 x64
+IP 
+
+Senha root: ******
+
+Comandos utilizados:
+
+sudo apt-get update && sudo apt-get install -y apparmor-utils
+
+hostnamectl set-hostname tepaula
+
+vim /etc/hosts
+
+curl -fsSL https://get.docker.com | bash 
+
+curl -fsSL https://get.docker.com -o install-docker.sh
+
+sudo sh install-docker.sh 
+
+docker swarm init --advertise-addr
+
+docker network create --driver overlay --attachable network_public
+
+-- Arquivo -- 1 - traefik.yaml
+
+docker stack deploy --prune --resolve-image always -c traefik.yaml traefik
+
+-- Arquivo 2 - portainer.yaml
+
+"traefik.http.routers.portainer.rule=Host(pdouglas.server.bentektecnologia.com.br)"
+
+#subir stack portainer
+docker stack deploy --prune --resolve-image always -c portainer.yaml portainer
+# remover stack portainer
+docker stack rm portainer
